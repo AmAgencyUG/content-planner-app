@@ -1,0 +1,33 @@
+// ContentPlanner.jsx
+import React, { useEffect, useState } from "react";
+
+function ContentPlanner() {
+  const [plan, setPlan] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/plan")
+      .then(res => res.json())
+      .then(data => setPlan(data));
+  }, []);
+
+  return (
+    <div>
+      <h2>Automatischer Content-Plan</h2>
+      <table>
+        <thead>
+          <tr><th>Datum</th><th>Kunden</th></tr>
+        </thead>
+        <tbody>
+          {plan.map((entry, idx) => (
+            <tr key={idx}>
+              <td>{entry.date}</td>
+              <td>{entry.clients.join(", ")}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default ContentPlanner;
