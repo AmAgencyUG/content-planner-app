@@ -1,0 +1,15 @@
+// server.js
+const express = require("express");
+const cors = require("cors");
+const generatePlan = require("./planner");
+
+const app = express();
+app.use(cors());
+
+app.get("/api/plan", (req, res) => {
+  const plan = generatePlan(new Date());
+  res.json(plan);
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server läuft auf Port ${PORT}`));
